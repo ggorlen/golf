@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/golf', routes);
 app.use('/users', users);
 app.listen(3000)
-//var server = app.listen(8084,'10.132.146.172');
+//var server = app.listen(8085,'10.132.146.172');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
