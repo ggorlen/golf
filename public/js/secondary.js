@@ -86,3 +86,11 @@ function colorWheel(entry)
   	text= text+ (255-num)+",255,0)";
   return text;
 }
+function gradient(shape,stops,p1,p2){
+	shape.fillColor = {
+		gradient:{
+			stops:[prettyRaCo(),prettyRaCo(),prettyRaCo()]},
+			origin: [0,Math.random()*screen.availHeight],
+			destination: [screen.availWidth,Math.random()*screen.availHeight]
+					};
+}

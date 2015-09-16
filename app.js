@@ -10,7 +10,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var Level = require('./models/level');
 var app = express();
-mongoose.connect('mongodb://localhost/candusenhub');
+//mongoose.connect('mongodb://localhost/candusenhub');
+mongoose.connect('mongodb://henry:henryvd1@ds059702.mongolab.com:59702/candusenhub');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // view engine setup
@@ -28,27 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.listen(3000)
-
-/*n = new Level({
-  name: Math.random().toString(),
-  walls: [
-    [[0,60],[80,80]],
-    [[0,30],[80,50]],
-    [[10,70],[10,80]]
-     ],
-     ballStart: [20,7],
-  hole: [95,95],
-  hazards:  [{
-    segments:[[25,10],[0,75],[40,10]],
-    fillColor: 'blue',
-    closed:true
-    }, {
-    segments:[[42,45],[90,48],[94,90],[42,90]],
-    fillColor: 'yellow',
-    closed:true
-}],
-});
-n.save()*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

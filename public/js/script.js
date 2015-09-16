@@ -15,13 +15,20 @@ function onFrame(e){
 		project.activeLayer.clear()
 		box = new Path.Rectangle(view.bounds);
 		box.fillColor = prettyRaCo()
+		console.log(currentLevel)
+		if(currentLevel<levels.length)
 		loadLevel(levels[currentLevel])
+		else {
+			showScoreCard(scoreCard)
+		}
 		//shots.content = 0
 		}
 }
 var levels = [];
+var scoreCard = [];
 $.each($('.level'),function(i,el){
 	var hzds=[];
+	scoreCard[i] = 0;
 	hazards = JSON.parse(el.attributes.hazards.textContent)
 	for(var i=0;i<hazards.length;i++){
 		pp = hazards[i]
@@ -50,6 +57,7 @@ loadLevel(levels[currentLevel])
 
 function stroke(pt){
 	current=shots.content.split('/');
+	scoreCard[currentLevel]++;
 	//console.dir(current[0])
 	shots.content = (parseInt(current[0])+1)+'/'+current[1]
 }
@@ -124,7 +132,7 @@ function onMouseMove(ev){
 }
 $('body').keyup(function(e){
 	//console.dir(e)
-   if(e.keyCode == 16){
+   /*if(e.keyCode == 16){
 		 currentLevel--;
 		 project.activeLayer.clear()
  		box = new Path.Rectangle(view.bounds);
@@ -138,7 +146,7 @@ $('body').keyup(function(e){
 	 		box = new Path.Rectangle(view.bounds);
 	 		box.fillColor = prettyRaCo()
 	 		loadLevel(levels[currentLevel])
-   }
+   }*/
 	 if(e.keyCode ==27){
 		 if(scan){
 			 line.remove()
@@ -147,3 +155,45 @@ $('body').keyup(function(e){
 		 }
 	 }
 });
+
+function showScoreCard(scoreCard){
+	project.activeLayer.clear();
+	for(var i=0;i<levels.length;i++){
+		parString =''
+		for(var j=0;j<levels[i].par.textContent;j++)
+			parString+= '\u2022'
+			shotsString =''
+			for(var j=0;j<scoreCard[i];j++)
+				shotsString+= '\u2022'
+		dots = new paper.PointText({
+				point: [400,70*i+40],
+				justification: 'right',
+				fillColor: prettyRaCo(),
+				fontSize: 30,
+				content: 'hole '+(i+1)+': par:'+parString+'\n score:'+shotsString,
+				'background-color': 'white'
+			});
+		var totalStrokes = 0;
+		$.each(scoreCard,function() {
+	    totalStrokes += this;
+		});
+		var parTotal = 0;
+		$.each(levels,function() {
+	    parTotal += parseInt(this.par.textContent);
+		});
+		score = totalStrokes-parTotal
+		scoreText = Math.abs(score)+ (score>0 ? ' over' : ' under')
+		if(score===0){
+			scoreText = 'even'
+		}
+			total = new paper.PointText({
+					point: [600,400],
+					justification: 'left',
+					fillColor: 'black',
+					fontSize: 110,
+					content: scoreText,
+					'background-color': 'white'
+				});
+		gradient(total)
+	}
+}

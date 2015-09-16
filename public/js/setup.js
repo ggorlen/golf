@@ -30,7 +30,7 @@ function loadLevel(level){
 			'background-color': 'white'
 		});
 		shots.content = 0+'/'+level.par.textContent
-}
+
 
 function wall(points){
 	for(var i=0;i<points.length;i++){
@@ -43,4 +43,5 @@ function wall(points){
 		strokeWidth: 8
 	})
 	return w;
+}
 }

@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
   Level.find(function(err,docs){
   levels = docs//[docs[docs.length-1]];
   //console.dir(JSON.stringify(docs[0]))
-    //res.render('index', { levels: levels });
-    res.render('index', { levels: [lev] });
+    res.render('index', { levels: levels });
+    //res.render('index', { levels: [lev] });
   });
 });
 
