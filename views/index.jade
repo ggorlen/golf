@@ -2,6 +2,5 @@ extends layout
 
 block content
   canvas(id='myCanvas', resize)
-  ul
   each val in levels
-    div(class='level' par= val.par holeName= val.name hole= JSON.stringify(val.hole) start= JSON.stringify(val.ballStart) walls= JSON.stringify(val.walls), hazards= JSON.stringify(val.hazards))= val.name
+    div(hidden class='level' par= val.par holeName= val.name hole= JSON.stringify(val.hole) start= JSON.stringify(val.ballStart) walls= JSON.stringify(val.walls), hazards= JSON.stringify(val.hazards))
