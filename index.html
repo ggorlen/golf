@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Mini Golf</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1"
+    />
+    <script src="lib/jquery.js" type="text/javascript"></script>
+    <script src="lib/paper.js" type="text/javascript"></script>
+    <script src="js/secondary.js" type="text/javascript"></script>
+    <script src="js/circle.js" type="text/javascript"></script>
+    <script src="js/setup.js" type="text/javascript"></script>
+    <script src="js/script.js" type="text/paperscript" canvas="myCanvas"></script>
+  </head>
+  <body>
+    <h1 id="error-message"></h1>
+    <h2 id="error-status"></h2>
+    <pre id="error-stack"></pre>
+
+    <canvas id="myCanvas" resize></canvas>
+
+    <script>
+      function prettyRaCo() {
+        const colorWheel = Math.floor(Math.random() * 6);
+        const n = Math.floor(Math.random() * 256);
+        switch (colorWheel) {
+          case 0:
+            return `rgb(0,255,${n})`;
+          case 1:
+            return `rgb(0,${n},255)`;
+          case 2:
+            return `rgb(255,0,${n})`;
+          case 3:
+            return `rgb(255,${n},0)`;
+          case 4:
+            return `rgb(${n},255,0)`;
+          case 5:
+            return `rgb(${n},0,255)`;
+        }
+      }
+
+      const lev = {
+        name: "standard4",
+        par: 2,
+        ballStart: [20, 43],
+        hole: [73, 84],
+        walls: [
+          [
+            [45, 24],
+            [57, 36],
+          ],
+          [
+            [45, 64],
+            [57, 76],
+          ],
+          [
+            [64, 56],
+            [75, 66],
+          ],
+        ],
+        hazards: [
+          {
+            segments: [
+              [15, 20],
+              [13, 71],
+              [38, 89],
+              [76, 92],
+              [91, 71],
+              [85, 31],
+              [64, 14],
+              [31, 9],
+            ],
+            fillColor: prettyRaCo(),
+            closed: true,
+            sm: true,
+          },
+          {
+            segments: [
+              [25, 54],
+              [19, 65],
+              [31, 78],
+              [39, 69],
+              [31, 52],
+            ],
+            fillColor: prettyRaCo(),
+            closed: true,
+            sm: true,
+          },
+        ],
+      };
+
+      const div = document.createElement("div");
+      div.classList.add("level");
+      div.hidden = true;
+      div.setAttribute("par", lev.par);
+      div.setAttribute("holeName", lev.name);
+      div.setAttribute("hole", JSON.stringify(lev.hole));
+      div.setAttribute("start", JSON.stringify(lev.ballStart));
+      div.setAttribute("walls", JSON.stringify(lev.walls));
+      div.setAttribute("hazards", JSON.stringify(lev.hazards));
+      document.body.appendChild(div);
+
+      const error = null;
+      if (error) {
+        document.getElementById("error-message").textContent = error.message;
+        document.getElementById("error-status").textContent = error.status;
+        document.getElementById("error-stack").textContent = error.stack;
+      }
+    </script>
+  </body>
+</html>

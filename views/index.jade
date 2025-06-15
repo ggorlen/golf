@@ -1,6 +1,0 @@
-extends layout
-
-block content
-  canvas(id='myCanvas', resize)
-  each val in levels
-    div(hidden class='level' par= val.par holeName= val.name hole= JSON.stringify(val.hole) start= JSON.stringify(val.ballStart) walls= JSON.stringify(val.walls), hazards= JSON.stringify(val.hazards))
